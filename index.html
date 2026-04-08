@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Для тебя ❤️</title>
-
 <style>
 body {
   margin: 0;
@@ -13,23 +12,6 @@ body {
   text-align: center;
   overflow-x: hidden;
 }
-
-/* Сердечки */
-.heart {
-  position: fixed;
-  top: -10px;
-  color: red;
-  font-size: 20px;
-  animation: fall linear forwards;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(100vh);
-  }
-}
-
-/* Галерея */
 .gallery img {
   width: 250px;
   height: 250px;
@@ -37,8 +19,6 @@ body {
   border-radius: 15px;
   margin: 10px;
 }
-
-/* Кнопки */
 button {
   padding: 10px 20px;
   border: none;
@@ -48,99 +28,40 @@ button {
   cursor: pointer;
   margin: 10px;
 }
-
-/* Слайд-шоу */
-.slide {
-  display: none;
-  font-size: 20px;
-  padding: 20px;
-}
-
-.active {
-  display: block;
-}
 </style>
-
 </head>
-
 <body>
 
 <h1>Для тебя 💖</h1>
 <p>Мой самый любимый человек</p>
 
-<!-- 🎵 Музыка -->
+<!-- Музыка -->
 <audio autoplay loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 📸 Фото -->
+<!-- Галерея -->
 <div class="gallery">
   <img src="photo1.jpg">
   <img src="photo2.jpg">
   <img src="photo3.jpg">
 </div>
 
-<!-- 💌 Кнопки -->
-<button onclick="showLove()">Нажми 💌</button>
-<button onclick="checkPassword()">Секрет 🔐</button>
-
-<!-- 📖 История -->
-<div id="story">
-  <div class="slide active">💑 Мы познакомились...</div>
-  <div class="slide">😊 Первый смех вместе...</div>
-  <div class="slide">❤️ И вот мы здесь...</div>
-</div>
-
-<button onclick="nextSlide()">Дальше ➡️</button>
+<!-- Кнопка с задачкой -->
+<button onclick="checkTask()">Реши задачку 🔓</button>
 
 <script>
-/* ❤️ Падающие сердечки */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
-}, 300);
-
-/* 💌 Любовь */
-function showLove() {
-  alert("Я тебя очень сильно люблю ❤️");
-}
-
-/* 🔐 Секрет */
-function checkPassword() {
-  let pass = prompt("Введи пароль 💕");
-  if (pass === "14.02") {
-    alert("Ты мой самый важный человек, без которого я не предсталяю свою жизнь 💖");
-  } else {
-    alert("Неправильный пароль 😢");
-  }
-}
+// Функция задачки
 function checkTask() {
   let answer = prompt("Реши задачку 💕: 7 × 3 + 4 = ?");
 
   if (answer === "25") {
-    // 💞 Запуск сердца
-    for (let i = 0; i < 30; i++) {
-      setTimeout(createHeart, i * 100);
-    }
+    // Переход на секретную страницу
+    window.location.href = "secret.html";
+  } else {
+    alert("Неправильно 😢 Попробуй ещё раз");
   }
-/* 📖 Слайд-шоу */
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-
-function nextSlide() {
-  slides[slideIndex].classList.remove("active");
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].classList.add("active");
 }
 </script>
-
 </body>
 </html>
