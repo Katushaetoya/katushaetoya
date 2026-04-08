@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Для тебя ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(120deg, #ff758c, #ff7eb3);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Сердечки */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: red;
+  font-size: 20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Галерея */
+.gallery img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+/* Кнопки */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  color: #ff4f7b;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* Слайд-шоу */
+.slide {
+  display: none;
+  font-size: 20px;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Для тебя 💖</h1>
+<p>Мой самый любимый человек</p>
+
+<!-- 🎵 Музыка -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 📸 Фото -->
+<div class="gallery">
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+</div>
+
+<!-- 💌 Кнопки -->
+<button onclick="showLove()">Нажми 💌</button>
+<button onclick="checkPassword()">Секрет 🔐</button>
+
+<!-- 📖 История -->
+<div id="story">
+  <div class="slide active">💑 Мы познакомились...</div>
+  <div class="slide">😊 Первый смех вместе...</div>
+  <div class="slide">❤️ И вот мы здесь...</div>
+</div>
+
+<button onclick="nextSlide()">Дальше ➡️</button>
+
+<script>
+/* ❤️ Падающие сердечки */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 300);
+
+/* 💌 Любовь */
+function showLove() {
+  alert("Я тебя очень сильно люблю ❤️");
+}
+
+/* 🔐 Секрет */
+function checkPassword() {
+  let pass = prompt("Введите пароль 💕");
+  if (pass === "love") {
+    alert("Ты мой самый важный человек 💖");
+  } else {
+    alert("Неправильный пароль 😢");
+  }
+}
+
+/* 📖 Слайд-шоу */
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+
+function nextSlide() {
+  slides[slideIndex].classList.remove("active");
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add("active");
+}
+</script>
+
+</body>
+</html>
