@@ -122,7 +122,14 @@ function checkPassword() {
     alert("Неправильный пароль 😢");
   }
 }
+function checkTask() {
+  let answer = prompt("Реши задачку 💕: 7 × 3 + 4 = ?");
 
+  if (answer === "25") {
+    // 💞 Запуск сердца
+    for (let i = 0; i < 30; i++) {
+      setTimeout(createHeart, i * 100);
+    }
 /* 📖 Слайд-шоу */
 let slideIndex = 0;
 const slides = document.querySelectorAll(".slide");
