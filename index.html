@@ -11,14 +11,17 @@ body {
 #stars { position:fixed; width:100%; height:100%; z-index:-1; }
 .star { position:absolute; width:2px; height:2px; background:white; border-radius:50%; animation: twinkle 2s infinite alternate; }
 @keyframes twinkle{from{opacity:0.2;}to{opacity:1;}}
+
 /* ЗАТЕМНЕНИЕ */
 #fade {position:fixed;width:100%;height:100%;background:black;opacity:0;transition:1s;z-index:9998;}
+
 /* ДВЕРИ */
 .door {position:fixed;width:50%;height:100%;top:0;background:#111;z-index:9999;transition:transform 1.5s ease;}
 #leftDoor{left:0;}
 #rightDoor{right:0;}
 .open #leftDoor{transform:translateX(-100%);}
 .open #rightDoor{transform:translateX(100%);}
+
 /* СТАРТ */
 #startScreen {position:fixed;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:10000;}
 #startScreen button {padding:20px 50px;font-size:24px;border-radius:40px;border:2px solid white;background:linear-gradient(45deg,purple,#a020f0);color:white;cursor:pointer;animation:pulse 1.5s infinite;box-shadow:0 0 20px purple;}
@@ -89,12 +92,14 @@ h1,p{text-shadow:0 0 10px #ff4f7b;}
     <span class="numberHint glow" id="hint3">пупс = 1615</span>
     <span class="numberHint glow" id="hint4">Катюшка = 410</span>
     <span class="numberHint glow" id="hint5">пупсик = 934</span>
+    <span class="numberHint glow" id="hint6">магическое число = 22,85</span>
     <p class="fadeText">Вводи шаги по очереди:</p>
     <input type="number" id="step1" placeholder="Шаг 1">
     <input type="number" id="step2" placeholder="Шаг 2">
     <input type="number" id="step3" placeholder="Шаг 3">
     <input type="number" id="step4" placeholder="Шаг 4">
     <input type="number" id="step5" placeholder="Шаг 5">
+    <input type="number" id="step6" placeholder="Шаг 6">
     <div id="resultText"></div>
     <br>
     <button onclick="checkStep()">Проверить 💖</button>
@@ -132,7 +137,6 @@ function openSite(){
     const music = document.getElementById("music");
     if(music) music.play();
 
-    // Активируем кнопку
     let btn = document.querySelector(".taskBtn"); 
     btn.style.display = "inline-block";
     btn.style.pointerEvents = "auto";
@@ -179,23 +183,22 @@ function showStep(step){
 function closeModal(){document.getElementById("taskModal").style.display="none";}
 
 // ПРОВЕРКА
-let answers=[1329,1154,1615,410,934]; 
+let answers=[1329,1154,1615,410,934,22.85]; 
 let currentStep=0;
 function checkStep(){
   let val=document.getElementById("step"+(currentStep+1)).value;
   let box=document.getElementById("modalBox");
   let result=document.getElementById("resultText");
   if(val==="") return;
-  if(parseFloat(val) === answers[currentStep]){
+
+  // проверка с учетом плавающей точки
+  if(Math.abs(parseFloat(val) - answers[currentStep]) < 0.001){
     result.innerHTML="💖 Правильно!";
     currentStep++;
     if(currentStep<answers.length){ 
       showStep(currentStep+1); 
     } else { 
-      setTimeout(()=>{
-        result.innerHTML="🎉 Все шаги верны!";
-        window.location.href="secret.html";
-      },1200); 
+      result.innerHTML="🎉 Поздравляю! Все шаги верны 💖";
     }
   } else {
     result.innerHTML="😢 Неправильно";
