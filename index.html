@@ -35,18 +35,13 @@ h1,p{text-shadow:0 0 10px #ff4f7b;}
 <h1>Для тебя 💖</h1>
 <p>Мой самый любимый человек</p>
 
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-<audio id="clickSound"><source src="click.mp3" type="audio/mpeg"></audio>
-
 <div class="gallery">
   <img src="photo1.jpg">
   <img src="photo2.jpg">
   <img src="photo3.jpg">
 </div>
 
-<!-- Кнопка сразу активна -->
+<!-- Кнопка активна сразу -->
 <button class="taskBtn" onclick="taskClick()">Реши задачку 💜</button>
 
 <div id="taskModal">
@@ -74,7 +69,7 @@ h1,p{text-shadow:0 0 10px #ff4f7b;}
 </div>
 
 <script>
-// ЗВЁЗДЫ
+// Звезды
 for(let i=0;i<120;i++){
   let star=document.createElement("div"); 
   star.className="star"; 
@@ -83,7 +78,7 @@ for(let i=0;i<120;i++){
   document.getElementById("stars").appendChild(star);
 }
 
-// ВЗРЫВ СЕРДЕЦ
+// Взрыв сердечек
 function explodeHearts(x,y){
   for(let i=0;i<20;i++){
     let heart=document.createElement("div"); 
@@ -99,18 +94,14 @@ function explodeHearts(x,y){
   }
 }
 
-// КНОПКА
+// Открытие модалки
 function taskClick(){
-  const clickSound = document.getElementById("clickSound");
-  if(clickSound) clickSound.play();
   explodeHearts(window.innerWidth/2,window.innerHeight/2);
-  setTimeout(()=>{
-    document.getElementById("taskModal").style.display="flex"; 
-    showStep(1);
-  },300);
+  document.getElementById("taskModal").style.display="flex"; 
+  showStep(1);
 }
 
-// ПОКАЗ ШАГА
+// Показ шагов
 function showStep(step){
   let hint=document.getElementById("hint"+step);
   let input=document.getElementById("step"+step);
@@ -118,10 +109,10 @@ function showStep(step){
   if(input) setTimeout(()=>input.style.display="inline-block",300);
 }
 
-// ЗАКРЫТЬ МОДАЛКУ
+// Закрыть модалку
 function closeModal(){document.getElementById("taskModal").style.display="none";}
 
-// ПРОВЕРКА
+// Проверка шагов
 let answers=[1329,1154,1615,410,934,22.85]; 
 let currentStep=0;
 function checkStep(){
@@ -137,9 +128,7 @@ function checkStep(){
       showStep(currentStep+1); 
     } else { 
       result.innerHTML="🎉 Поздравляю! Сейчас откроется секрет 💖";
-      setTimeout(()=>{
-        window.location.href="secret.html";
-      }, 1200);
+      setTimeout(()=>{ window.location.href="secret.html"; }, 1200);
     }
   } else {
     result.innerHTML="😢 Неправильно";
