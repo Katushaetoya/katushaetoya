@@ -75,6 +75,15 @@ h1, p { text-shadow: 0 0 10px #ff4f7b; }
 .modalContent input { padding:10px; border-radius:10px; border:none; width:200px; text-align:center; margin:5px; display:none; }
 .numberHint { color:#8a2be2; font-size:13px; margin:3px 0; display:none; }
 
+/* МЕРЦАНИЕ */
+.glow {
+  animation: glowAnim 1s infinite alternate;
+}
+@keyframes glowAnim {
+  from { text-shadow: 0 0 5px #ff4f7b, 0 0 10px #ff4f7b; opacity:0.6; }
+  to { text-shadow: 0 0 15px #ff4f7b, 0 0 25px #ff4f7b; opacity:1; }
+}
+
 /* АНИМАЦИИ */
 .fadeText { opacity: 0; animation: fadeInText 1s forwards; }
 @keyframes fadeInText { to { opacity:1; } }
@@ -115,19 +124,21 @@ h1, p { text-shadow: 0 0 10px #ff4f7b; }
 <button class="taskBtn" onclick="taskClick()">Реши задачку 💜</button>
 </div>
 
-<!-- МОДАЛКА С ПОШАГОВЫМИ ПОДСКАЗКАМИ -->
+<!-- МОДАЛКА -->
 <div id="taskModal">
   <div class="modalContent" id="modalBox">
     <h2 class="fadeText">💜 Цепочка задач</h2>
     <p class="fadeText">Используй подсказки чисел:</p>
 
-    <span class="numberHint" id="hint1">люблю = 1329</span>
-    <span class="numberHint" id="hint2">котик = 1154</span>
-    <span class="numberHint" id="hint3">пупс = 1615</span>
-    <span class="numberHint" id="hint4">Катюшка = 410</span>
-    <span class="numberHint" id="hint5">пупсик = 934</span>
+    <span class="numberHint glow" id="hint1">люблю = 1329</span>
+    <span class="numberHint glow" id="hint2">котик = 1154</span>
+    <span class="numberHint glow" id="hint3">пупс = 1615</span>
+    <span class="numberHint glow" id="hint4">Катюшка = 410</span>
+    <span class="numberHint glow" id="hint5">пупсик = 934</span>
+    <span class="numberHint glow" id="hint6">магическое число = 22,85</span>
 
-    <p class="fadeText">Введи результаты шагов:</p>
+    <p class="fadeText">Введи результаты шагов по порядку:</p>
+
     <input type="number" id="step1" placeholder="Шаг 1">
     <input type="number" id="step2" placeholder="Шаг 2">
     <input type="number" id="step3" placeholder="Шаг 3">
@@ -154,7 +165,7 @@ for(let i=0;i<150;i++){
   document.getElementById('stars').appendChild(star);
 }
 
-// ОТКРЫТИЕ САЙТА
+// ОТКРЫТИЕ
 function openSite(){
   if(navigator.vibrate) navigator.vibrate(100);
   document.getElementById('fade').style.opacity='1';
@@ -168,7 +179,7 @@ function openSite(){
   },1800);
 }
 
-// МИНИ-ВЗРЫВ СЕРДЕЦ
+// ВЗРЫВ СЕРДЕЦ
 function explodeHearts(x,y){
   for(let i=0;i<20;i++){
     let heart=document.createElement('div');
@@ -184,48 +195,38 @@ function explodeHearts(x,y){
   }
 }
 
-// КНОПКА РЕШИ ЗАДАЧКУ
+// КНОПКА ЗАДАЧКИ
 function taskClick(){
   document.getElementById('clickSound').play();
   explodeHearts(window.innerWidth/2, window.innerHeight/2);
   setTimeout(()=>{document.getElementById('taskModal').style.display='flex'; showStepsSequentially();},300);
 }
-
 function closeModal(){document.getElementById('taskModal').style.display='none';}
 
-// ПОШАГОВОЕ ПОЯВЛЕНИЕ ПОЛЕЙ И ПОДСКАЗОК
+// ПОШАГОВОЕ ПОЯВЛЕНИЕ С МЕРЦАНИЕМ
 function showStepsSequentially(){
-  const hints = ['hint1','hint2','hint3','hint4','hint5'];
+  const hints = ['hint1','hint2','hint3','hint4','hint5','hint6'];
   const steps = ['step1','step2','step3','step4','step5','step6'];
   hints.forEach((id,i)=>setTimeout(()=>document.getElementById(id).style.display='block', i*400));
   steps.forEach((id,i)=>setTimeout(()=>document.getElementById(id).style.display='inline-block', i*500+800));
 }
 
-// ПРОВЕРКА ЦЕПОЧКИ
+// ПРОВЕРКА
 function checkTask(){
-  let s1=parseFloat(document.getElementById('step1').value);
-  let s2=parseFloat(document.getElementById('step2').value);
-  let s3=parseFloat(document.getElementById('step3').value);
-  let s4=parseFloat(document.getElementById('step4').value);
-  let s5=parseFloat(document.getElementById('step5').value);
-  let s6=parseFloat(document.getElementById('step6').value);
-
-  let correct=true;
-  if(Math.abs(s1-38)>0.1) correct=false;
-  if(Math.abs(s2-34.97)>0.1) correct=false;
-  if(Math.abs(s3-23.43)>0.1) correct=false;
-  if(Math.abs(s4-25.16)>0.1) correct=false;
-  if(Math.abs(s5-0.614)>0.01) correct=false;
-  if(Math.abs(s6-14.02)>0.01) correct=false;
+  let vals = [];
+  for(let i=1;i<=6;i++){ vals.push(parseFloat(document.getElementById('step'+i).value)); }
+  const correct = [38, 34.97, 23.43, 25.16, 0.614, 14.02];
+  let ok = true;
+  for(let i=0;i<vals.length;i++){ if(Math.abs(vals[i]-correct[i])>0.01) ok=false; }
 
   const box=document.getElementById('modalBox');
   const result=document.getElementById('resultText');
 
-  if(correct){
+  if(ok){
     explodeHearts(window.innerWidth/2, window.innerHeight/2);
     result.innerHTML="💖 Правильно!";
     result.style.color="#ff4f7b";
-    setTimeout(()=>{window.location.href="secret.html";},1200);
+    setTimeout(()=>{ window.location.href="secret.html"; },1200);
   }else{
     result.innerHTML="😢 Неправильно";
     result.style.color="white";
