@@ -1,26 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <title>Для тебя мой самый любимый Витюшкинс ❤️</title>
+
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #000000; /* Черный фон */
+  background-color: #000;
   color: white;
   text-align: center;
   overflow-x: hidden;
 }
+
+/* === СТАРТОВЫЙ ЭКРАН === */
+#startScreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  perspective: 1000px;
+}
+
+/* КНОПКА */
+#startScreen button {
+  padding: 20px 50px;
+  font-size: 24px;
+  border-radius: 40px;
+  border: 2px solid white;
+  background: linear-gradient(45deg, purple, #a020f0);
+  color: white;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+  transition: 0.3s;
+  box-shadow: 0 0 20px purple;
+}
+
+#startScreen button:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 40px #a020f0;
+}
+
+/* Пульсация */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* === ДВЕРИ === */
+.door {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  background: #111;
+  z-index: 9999;
+  transition: transform 1.5s ease;
+}
+
+#leftDoor {
+  left: 0;
+  border-right: 2px solid #222;
+}
+
+#rightDoor {
+  right: 0;
+  border-left: 2px solid #222;
+}
+
+/* ОТКРЫТИЕ */
+.open #leftDoor {
+  transform: translateX(-100%);
+}
+
+.open #rightDoor {
+  transform: translateX(100%);
+}
+
+/* === ОСНОВНОЙ КОНТЕНТ === */
+#mainContent {
+  display: none;
+}
+
 h1, p {
   text-shadow: 0 0 10px #ff4f7b;
 }
+
 .gallery {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 20px 0;
 }
+
 .gallery img {
   width: 250px;
   height: 250px;
@@ -29,10 +108,12 @@ h1, p {
   margin: 10px;
   transition: transform 0.3s;
 }
+
 .gallery img:hover {
   transform: scale(1.1);
 }
-button {
+
+button.taskBtn {
   padding: 15px 30px;
   border: none;
   border-radius: 25px;
@@ -43,34 +124,58 @@ button {
   margin: 20px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-button:hover {
+
+button.taskBtn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 20px #ff4f7b;
 }
 </style>
 </head>
+
 <body>
 
-<h1>Для тебя мой самый любимый Витюшкинс ❤️💖</h1>
+<!-- ДВЕРИ -->
+<div id="leftDoor" class="door"></div>
+<div id="rightDoor" class="door"></div>
+
+<!-- СТАРТОВЫЙ ЭКРАН -->
+<div id="startScreen">
+  <button onclick="openSite()">Открой 💜</button>
+</div>
+
+<!-- ОСНОВНОЙ САЙТ -->
+<div id="mainContent">
+
+<h1>Для тебя 💖</h1>
 <p>Мой самый любимый человек</p>
 
-<!-- Музыка -->
-<audio autoplay loop>
+<audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Галерея -->
 <div class="gallery">
-  <img src="photo1.jpg" alt="Фото 1">
-  <img src="photo2.jpg" alt="Фото 2">
-  <img src="photo3.jpg" alt="Фото 3">
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
 </div>
 
-<!-- Кнопка задачки -->
-<button onclick="checkTask()">Реши задачку 🔓</button>
+<button class="taskBtn" onclick="checkTask()">Реши задачку 🔓</button>
+
+</div>
 
 <script>
-// Падающие сердечки на главной странице
+// ОТКРЫТИЕ САЙТА
+function openSite() {
+  document.body.classList.add("open");
+
+  setTimeout(() => {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("music").play();
+  }, 1500);
+}
+
+// СЕРДЕЧКИ
 function createHeart() {
   const heart = document.createElement("div");
   heart.innerHTML = "💖";
@@ -87,7 +192,7 @@ function createHeart() {
 }
 setInterval(createHeart, 300);
 
-// Анимация падения сердечек
+// АНИМАЦИЯ ПАДЕНИЯ
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes fall {
@@ -96,9 +201,9 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Функция задачки
+// ЗАДАЧКА
 function checkTask() {
-  let answer = prompt("А теперь прийдется немного подумать, сколько месяцев мы знакомы ?");
+  let answer = prompt("А теперь придется немного подумать, сколько месяцев мы знакомы?");
   if (answer === "82") {
     window.location.href = "secret.html";
   } else {
