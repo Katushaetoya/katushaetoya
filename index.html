@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Для тебя мой самый любимый Витюшкинс ❤️</title>
-
 <style>
 body {
   margin: 0;
@@ -12,8 +11,8 @@ body {
   text-align: center;
   overflow-x: hidden;
   background: black;
-  position: relative;
   height: 100vh;
+  position: relative;
 }
 
 /* ЗВЁЗДЫ */
@@ -41,6 +40,8 @@ body {
   padding: 20px 50px; font-size: 24px; border-radius: 40px; border: 2px solid white;
   background: linear-gradient(45deg, purple, #a020f0); color: white; cursor: pointer;
   animation: pulse 1.5s infinite; box-shadow: 0 0 20px purple;
+  pointer-events: auto;
+  z-index: 10002;
 }
 #startScreen button:hover { transform: scale(1.15); }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
@@ -59,6 +60,8 @@ h1, p { text-shadow: 0 0 10px #ff4f7b; }
   padding: 20px 50px; font-size: 22px; border-radius: 40px; border: 2px solid white;
   background: linear-gradient(45deg, purple, #a020f0); color: white; cursor: pointer;
   animation: pulseBtn 1.5s infinite; box-shadow: 0 0 20px purple; margin:20px;
+  pointer-events: auto;
+  z-index: 10002;
 }
 .taskBtn:hover { transform: scale(1.15); }
 @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
@@ -76,9 +79,7 @@ h1, p { text-shadow: 0 0 10px #ff4f7b; }
 .numberHint { color:#8a2be2; font-size:13px; margin:3px 0; display:none; }
 
 /* МЕРЦАНИЕ */
-.glow {
-  animation: glowAnim 1s infinite alternate;
-}
+.glow { animation: glowAnim 1s infinite alternate; }
 @keyframes glowAnim {
   from { text-shadow: 0 0 5px #ff4f7b, 0 0 10px #ff4f7b; opacity:0.6; }
   to { text-shadow: 0 0 15px #ff4f7b, 0 0 25px #ff4f7b; opacity:1; }
@@ -172,10 +173,13 @@ function openSite(){
   document.getElementById('doorSound').play();
   setTimeout(()=>{ document.body.classList.add('open'); },300);
   setTimeout(()=>{
-    document.getElementById('startScreen').style.display='none';
-    document.getElementById('mainContent').style.display='block';
+    const main=document.getElementById('mainContent');
+    main.style.display='block';
     document.getElementById('fade').style.opacity='0';
     document.getElementById('music').play();
+    const btn=document.querySelector('.taskBtn');
+    btn.disabled=false;
+    btn.style.pointerEvents='auto';
   },1800);
 }
 
@@ -205,18 +209,18 @@ function closeModal(){document.getElementById('taskModal').style.display='none';
 
 // ПОШАГОВОЕ ПОЯВЛЕНИЕ С МЕРЦАНИЕМ
 function showStepsSequentially(){
-  const hints = ['hint1','hint2','hint3','hint4','hint5','hint6'];
-  const steps = ['step1','step2','step3','step4','step5','step6'];
+  const hints=['hint1','hint2','hint3','hint4','hint5','hint6'];
+  const steps=['step1','step2','step3','step4','step5','step6'];
   hints.forEach((id,i)=>setTimeout(()=>document.getElementById(id).style.display='block', i*400));
   steps.forEach((id,i)=>setTimeout(()=>document.getElementById(id).style.display='inline-block', i*500+800));
 }
 
 // ПРОВЕРКА
 function checkTask(){
-  let vals = [];
+  let vals=[];
   for(let i=1;i<=6;i++){ vals.push(parseFloat(document.getElementById('step'+i).value)); }
-  const correct = [38, 34.97, 23.43, 25.16, 0.614, 14.02];
-  let ok = true;
+  const correct=[38,34.97,23.43,25.16,0.614,14.02];
+  let ok=true;
   for(let i=0;i<vals.length;i++){ if(Math.abs(vals[i]-correct[i])>0.01) ok=false; }
 
   const box=document.getElementById('modalBox');
