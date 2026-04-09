@@ -5,53 +5,44 @@
 <title>Для тебя мой самый любимый Витюшкинс ❤️</title>
 <style>
 body {
-  margin: 0; font-family: Arial, sans-serif; color: white; text-align: center; overflow-x: hidden; background: black; height:100vh; position:relative;
+  margin: 0; font-family: Arial, sans-serif; color: white; text-align: center; overflow-x: hidden; background:black; height:100vh; position:relative;
 }
-
 /* ЗВЁЗДЫ */
-#stars { position: fixed; width: 100%; height: 100%; z-index: -1; }
-.star { position: absolute; width: 2px; height: 2px; background: white; border-radius:50%; animation: twinkle 2s infinite alternate; }
-@keyframes twinkle { from { opacity:0.2;} to{opacity:1;} }
-
+#stars { position:fixed; width:100%; height:100%; z-index:-1; }
+.star { position:absolute; width:2px; height:2px; background:white; border-radius:50%; animation: twinkle 2s infinite alternate; }
+@keyframes twinkle{from{opacity:0.2;}to{opacity:1;}}
 /* ЗАТЕМНЕНИЕ */
-#fade { position: fixed; width:100%; height:100%; background:black; opacity:0; transition:1s; z-index:9998; }
-
+#fade {position:fixed;width:100%;height:100%;background:black;opacity:0;transition:1s;z-index:9998;}
 /* ДВЕРИ */
-.door { position: fixed; width:50%; height:100%; top:0; background:#111; z-index:9999; transition: transform 1.5s ease; }
-#leftDoor{ left:0; }
-#rightDoor{ right:0; }
-.open #leftDoor{ transform:translateX(-100%);}
-.open #rightDoor{ transform:translateX(100%);}
-
+.door {position:fixed;width:50%;height:100%;top:0;background:#111;z-index:9999;transition:transform 1.5s ease;}
+#leftDoor{left:0;}
+#rightDoor{right:0;}
+.open #leftDoor{transform:translateX(-100%);}
+.open #rightDoor{transform:translateX(100%);}
 /* СТАРТ */
-#startScreen { position: fixed; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index:10000; }
-#startScreen button { padding:20px 50px; font-size:24px; border-radius:40px; border:2px solid white; background:linear-gradient(45deg,purple,#a020f0); color:white; cursor:pointer; animation:pulse 1.5s infinite; box-shadow:0 0 20px purple; }
+#startScreen {position:fixed;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:10000;}
+#startScreen button {padding:20px 50px;font-size:24px;border-radius:40px;border:2px solid white;background:linear-gradient(45deg,purple,#a020f0);color:white;cursor:pointer;animation:pulse 1.5s infinite;box-shadow:0 0 20px purple;}
 #startScreen button:hover { transform: scale(1.15); }
-@keyframes pulse { 0% {transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+@keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
 
 /* САЙТ */
-#mainContent { display:none; }
-h1,p { text-shadow:0 0 10px #ff4f7b; }
-
-/* ГАЛЕРЕЯ */
-.gallery { display:flex; justify-content:center; flex-wrap:wrap; margin:20px 0;}
-.gallery img { width:250px; height:250px; object-fit:cover; border-radius:15px; margin:10px; transition:0.3s;}
-.gallery img:hover{ transform: scale(1.1); }
-
-/* КНОПКА */
-.taskBtn { padding:20px 50px; font-size:22px; border-radius:40px; border:2px solid white; background:linear-gradient(45deg,purple,#a020f0); color:white; cursor:pointer; animation:pulseBtn 1.5s infinite; box-shadow:0 0 20px purple; margin:20px; display:none; pointer-events:none; }
-.taskBtn:hover { transform:scale(1.15);}
-@keyframes pulseBtn { 0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+#mainContent{display:none;}
+h1,p{text-shadow:0 0 10px #ff4f7b;}
+.gallery{display:flex;justify-content:center;flex-wrap:wrap;margin:20px 0;}
+.gallery img{width:250px;height:250px;object-fit:cover;border-radius:15px;margin:10px;transition:0.3s;}
+.gallery img:hover{transform:scale(1.1);}
+.taskBtn{padding:20px 50px;font-size:22px;border-radius:40px;border:2px solid white;background:linear-gradient(45deg,purple,#a020f0);color:white;cursor:pointer;animation:pulseBtn 1.5s infinite;box-shadow:0 0 20px purple;margin:20px;display:none;pointer-events:none;}
+.taskBtn:hover{transform:scale(1.15);}
+@keyframes pulseBtn{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
 
 /* МОДАЛКА */
-#taskModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:10001; }
-.modalContent { background:#111; padding:30px; border-radius:20px; text-align:center; box-shadow:0 0 30px purple; animation:fadeIn 0.5s; }
-.modalContent input { padding:10px; border-radius:10px; border:none; width:200px; text-align:center; margin:5px; display:none; }
-.numberHint { color:#8a2be2; font-size:13px; margin:3px 0; display:none; }
-.glow { animation: glowAnim 1s infinite alternate; }
-@keyframes glowAnim { from {text-shadow:0 0 5px #ff4f7b,0 0 10px #ff4f7b; opacity:0.6;} to{ text-shadow:0 0 15px #ff4f7b,0 0 25px #ff4f7b; opacity:1;} }
-
-.fadeText{opacity:0; animation:fadeInText 1s forwards;}
+#taskModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:10001;}
+.modalContent{background:#111;padding:30px;border-radius:20px;text-align:center;box-shadow:0 0 30px purple;animation:fadeIn 0.5s;}
+.modalContent input{padding:10px;border-radius:10px;border:none;width:200px;text-align:center;margin:5px;display:none;}
+.numberHint{color:#8a2be2;font-size:13px;margin:3px 0;display:none;}
+.glow{animation:glowAnim 1s infinite alternate;}
+@keyframes glowAnim{from{text-shadow:0 0 5px #ff4f7b,0 0 10px #ff4f7b;opacity:0.6;}to{text-shadow:0 0 15px #ff4f7b,0 0 25px #ff4f7b;opacity:1;}}
+.fadeText{opacity:0;animation:fadeInText 1s forwards;}
 @keyframes fadeInText{to{opacity:1;}}
 @keyframes fadeIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
 .shake{animation:shake 0.4s;}
@@ -89,7 +80,6 @@ h1,p { text-shadow:0 0 10px #ff4f7b; }
 <button class="taskBtn" onclick="taskClick()">Реши задачку 💜</button>
 </div>
 
-<!-- МОДАЛКА -->
 <div id="taskModal">
   <div class="modalContent" id="modalBox">
     <h2 class="fadeText">💜 Цепочка задач</h2>
@@ -100,7 +90,7 @@ h1,p { text-shadow:0 0 10px #ff4f7b; }
     <span class="numberHint glow" id="hint4">Катюшка = 410</span>
     <span class="numberHint glow" id="hint5">пупсик = 934</span>
     <span class="numberHint glow" id="hint6">магическое число = 22,85</span>
-    <p class="fadeText">Введи шаги по порядку:</p>
+    <p class="fadeText">Вводи шаги по очереди:</p>
     <input type="number" id="step1" placeholder="Шаг 1">
     <input type="number" id="step2" placeholder="Шаг 2">
     <input type="number" id="step3" placeholder="Шаг 3">
@@ -142,7 +132,7 @@ function taskClick(){
   setTimeout(()=>{document.getElementById("taskModal").style.display="flex"; showStep(1);},300);
 }
 
-// ПОКАЗ ПОДСКАЗКИ И ПОЛЕЙ ПОШАГОВО
+// ПОКАЗ ШАГА
 function showStep(step){
   let hint=document.getElementById("hint"+step);
   let input=document.getElementById("step"+step);
@@ -154,21 +144,22 @@ function showStep(step){
 function closeModal(){document.getElementById("taskModal").style.display="none";}
 
 // ПРОВЕРКА
-let answers=[1329,1154,1615,410,934]; // пример значений для шагов
+let answers=[1329,1154,1615,410,934]; 
+let currentStep=0;
 function checkStep(){
-  for(let i=1;i<=5;i++){
-    let val=document.getElementById("step"+i).value;
-    if(val!=""){
-      if(parseFloat(val)===answers[i-1]){
-        document.getElementById("resultText").innerHTML="💖 Правильно!";
-        document.getElementById("step"+(i+1))? showStep(i+1): setTimeout(()=>{window.location.href="secret.html";},1200);
-      } else{
-        document.getElementById("resultText").innerHTML="😢 Неправильно"; 
-        document.getElementById("modalBox").classList.add("shake");
-        setTimeout(()=>document.getElementById("modalBox").classList.remove("shake"),400);
-        break;
-      }
-    } else break;
+  let val=document.getElementById("step"+(currentStep+1)).value;
+  let box=document.getElementById("modalBox");
+  let result=document.getElementById("resultText");
+  if(val==""){ return; }
+  if(parseFloat(val)===answers[currentStep]){
+    result.innerHTML="💖 Правильно!";
+    currentStep++;
+    if(currentStep<answers.length){ showStep(currentStep+1); } 
+    else{ setTimeout(()=>{window.location.href="secret.html";},1200); }
+  } else{
+    result.innerHTML="😢 Неправильно";
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),400);
   }
 }
 </script>
