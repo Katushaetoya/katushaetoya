@@ -79,19 +79,37 @@
       font-size: 18px;
       color: #ff4f7b;
     }
+    #startScreen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('your-photo.jpg'); /* Замените на ваше фото */
+      background-size: cover;
+    }
+    #startScreen button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Стартовый экран с кнопкой -->
   <div id="startScreen">
     <button class="taskBtn" onclick="openSite()">Открой 💜</button>
   </div>
 
+  <!-- Основной контент -->
   <div id="mainContent" style="display: none;">
     <h1>Реши задачку 💖</h1>
 
+    <!-- Кнопка для запуска задачи -->
     <button class="taskBtn" onclick="taskClick()">Реши задачку 💜</button>
 
+    <!-- Модальное окно с задачами -->
     <div id="taskModal">
       <div class="modalContent">
         <h2>Цепочка задач 💜</h2>
@@ -103,7 +121,8 @@
         <div class="hint">пупс = 1615</div>
         <div class="hint">Катюшка = 410</div>
         <div class="hint">пупсик = 934</div>
-        
+        <div class="hint">Магическое число = 22.85</div>
+
         <!-- Шаги задачи -->
         <div class="hint" id="hint1">Шаг 1: Твой день + месяц рождения</div>
         <input type="number" id="step1" placeholder="Ответ шага 1">
@@ -203,11 +222,14 @@
         resultText += "Шаг 6 неправильный!<br>";
       }
 
+      // Если все шаги верны, переходим на secret.html
       if (isCorrect) {
-        resultText = "Поздравляем! Ты правильно решил все шаги! 🎉";
+        resultText = "Поздравляю, все верно! Переход на секретную страницу...";
+        setTimeout(() => {
+          window.location.href = "secret.html"; // Переход на страницу
+        }, 2000); // Задержка перед переходом
       }
 
-      // Отображаем результат
       document.getElementById("resultText").innerHTML = resultText;
     }
   </script>
